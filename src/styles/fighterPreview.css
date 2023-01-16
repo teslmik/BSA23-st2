@@ -11,3 +11,23 @@
 .fighter-preview___left {
   align-items: flex-start;
 }
+
+.fighter-preview___right img{
+  transform: scaleX(-1);
+}
+
+.fighter-info__block {
+  padding: 20px 30px;
+  list-style-type: none;
+  border-radius: 10px;
+  background-color: #fff;
+}
+
+.fighter-info__item:not(:last-child) {
+  margin-bottom: 5px;
+}
+
+.fighter-info__item::first-letter {
+  text-transform: uppercase;
+}
+
