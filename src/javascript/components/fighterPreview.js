@@ -13,7 +13,6 @@ export function createFighterPreview(fighter, position) {
     const fighterInfo = createElement({
       tagName: 'ul',
       className: 'fighter-info__block',
-      attributes: { style: { alignSelf: 'center' } },
     });
 
     for (let i in fighter) {
