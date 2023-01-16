@@ -15,6 +15,16 @@ class FighterService {
   async getFighterDetails(id) {
     // todo: implement this method
     // endpoint - `details/fighter/${id}.json`;
+
+    const endpoint = `details/fighter/${id}.json`;
+
+    try {
+      const apiDetails = await callApi(endpoint, 'GET');
+      return apiDetails;
+    } catch (error) {
+      console.warn(error);
+      alert('При отриманні інформації про бійця сталася помилка: ', error?.message);
+    }
   }
 }
 
