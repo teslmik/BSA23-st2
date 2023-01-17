@@ -23,7 +23,7 @@ class FighterService {
       return apiDetails;
     } catch (error) {
       console.warn(error);
-      alert('При отриманні інформації про бійця сталася помилка: ', error?.message);
+      alert(`При отриманні інформації про бійця сталася помилка:\n${error}`);
     }
   }
 }

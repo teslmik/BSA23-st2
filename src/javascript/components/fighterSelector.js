@@ -31,7 +31,8 @@ export async function getFighterInfo(fighterId) {
 
     return fighterDetailsMap.get(fighterId);
   } catch (error) {
-    throw error;
+    console.warn(error);
+    alert(`Помилка при виборі бійця:\n${error}`);
   }
 }
 
