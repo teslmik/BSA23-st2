@@ -17,7 +17,6 @@ export function renderArena(selectedFighters) {
   const [firstFighter, secondFighter] = selectedFighters;
   fight(firstFighter, secondFighter)
     .then(res => {
-      console.log(res);
       showWinnerModal(res);
     });
 }
