@@ -25,6 +25,8 @@ export async function fight(firstFighter, secondFighter) {
       const key = e.code;
       if (key === controls.PlayerOneBlock) canAction.isBlockOne = false;
       if (key === controls.PlayerTwoBlock) canAction.isBlockTwo = false;
+      if (controls.PlayerOneCriticalHitCombination.includes(key)) criticalKeyOne.set(key, false);
+      if (controls.PlayerTwoCriticalHitCombination.includes(key)) criticalKeyTwo.set(key, false);
     });
 
     if (healthSecond === 0) resolve(firstFighter);
@@ -33,7 +35,6 @@ export async function fight(firstFighter, secondFighter) {
     // ---------------------------------------------------------
 
     function playerActions(event) {
-      console.log(canAction);
       const key = event.code;
 
       if (key === controls.PlayerOneAttack && !canAction.isBlockOne && !canAction.isBlockTwo) {
@@ -47,17 +48,14 @@ export async function fight(firstFighter, secondFighter) {
       if (key === controls.PlayerOneBlock) canAction.isBlockOne = true;
       if (key === controls.PlayerTwoBlock) canAction.isBlockTwo = true;
 
-      if (controls.PlayerOneCriticalHitCombination.includes(event.code)) {
-        criticalKeyOne.set(event.code, true);
+      if (controls.PlayerOneCriticalHitCombination.includes(key)) {
+        criticalKeyOne.set(key, true);
 
-        if (criticalKeyOne.get('KeyQ', true) && criticalKeyOne.get('KeyW', true) && criticalKeyOne.get('KeyE', true)) {
-          criticalKeyOne.set('KeyQ', false) && criticalKeyOne.set('KeyW', false) && criticalKeyOne.set('KeyE', false);
+        if (criticalKeyOne.get('KeyQ') && criticalKeyOne.get('KeyW') && criticalKeyOne.get('KeyE') && canAction.canCriticalOne) {
 
-          if (canAction.canCriticalOne) {
-            canAction.canCriticalOne = false;
-            healthSecond = attackFighter(firstFighter, secondFighter, healthSecond, true);
-            rightFighterIndicator.style.width = `${healthSecond}%`;
-          }
+          canAction.canCriticalOne = false;
+          healthSecond = attackFighter(firstFighter, secondFighter, healthSecond, true);
+          rightFighterIndicator.style.width = `${healthSecond}%`;
 
           setTimeout(() => {
             canAction.canCriticalOne = true;
@@ -65,17 +63,14 @@ export async function fight(firstFighter, secondFighter) {
         }
       }
 
-      if (controls.PlayerTwoCriticalHitCombination.includes(event.code)) {
-        criticalKeyTwo.set(event.code, true);
+      if (controls.PlayerTwoCriticalHitCombination.includes(key)) {
+        criticalKeyTwo.set(key, true);
 
-        if (criticalKeyTwo.get('KeyU', true) && criticalKeyTwo.get('KeyI', true) && criticalKeyTwo.get('KeyO', true)) {
-          criticalKeyTwo.set('KeyU', false) && criticalKeyTwo.set('KeyI', false) && criticalKeyTwo.set('KeyO', false);
+        if (criticalKeyTwo.get('KeyU') && criticalKeyTwo.get('KeyI') && criticalKeyTwo.get('KeyO') && canAction.canCriticalTwo) {
 
-          if (canAction.canCriticalTwo) {
-            canAction.canCriticalTwo = false;
-            healthFirst = attackFighter(secondFighter, firstFighter, healthFirst, true);
-            leftFighterIndicator.style.width = `${healthFirst}%`;
-          }
+          canAction.canCriticalTwo = false;
+          healthFirst = attackFighter(secondFighter, firstFighter, healthFirst, true);
+          leftFighterIndicator.style.width = `${healthFirst}%`;
 
           setTimeout(() => {
             canAction.canCriticalTwo = true;
